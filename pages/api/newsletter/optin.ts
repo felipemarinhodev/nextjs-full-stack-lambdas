@@ -19,8 +19,28 @@ const controllerByMethod = {
     request: NextApiRequest,
     response: NextApiResponse
   ) {
-    console.log(request.body.emailNewsletter);
-    
+    const email = request.body.emailNewsletter;
+    // Fail Fast validation
+    if (!Boolean(email) || !email.includes("@")) {
+      response  
+        .status(httpStatus.BadRequest)
+        .json({ message: "Você precisa enviar um email valido ex: test@test.com"})
+        return;
+    }
+
+    // Sanitize do email
+    // - Remover potenciais códigos maliciosos
+    // - Remover X coisas
+
+    // Adiciona a pessoa na newsletter
+    const { data, error } = await dbClient
+      .from("newsletter_users")
+      .insert({ email, optin: true})
+    // if (error) retorna resposta caso aconteça um problema
+
+    // Cria usuário de fato do sistema
+    await dbClient.auth.admin.createUser({ email })
+
     response
       .status(httpStatus.Success)
       .json({ message: "Post request!" })
