@@ -3,8 +3,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 // Supabase Setup
 // =========
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2bXB0YWltaG55eHlmaHNldmJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzk3NTc3ODYsImV4cCI6MTk5NTMzMzc4Nn0.SZyMqjmzCUFVUzNf6dycwiIg0-J2lQOavfgR5ZkO7XQ"
-const SUPABASE_URL = "https://qvmptaimhnyxyfhsevbt.supabase.co"
+const SUPABASE_KEY = process.env.SUPABASE_KEY
+const SUPABASE_URL = process.env.SUPABASE_URL
   const dbClient = createClient(SUPABASE_URL, SUPABASE_KEY)
 // =========
 
